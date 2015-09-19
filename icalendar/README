@@ -1,0 +1,6 @@
+# Fedora 22. install icalendar
+sudo dnf install python-icalendar python3-icalendar -y
+
+# run test. it just prints out an ical 
+
+python icalendar-example.py
