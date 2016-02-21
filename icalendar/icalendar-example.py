@@ -17,12 +17,12 @@ def display(cal):
 cal = Calendar()
 cal.add('prodid', '-//Maint Note//https://github.com/maint-notification//')
 cal.add('version', '2.0')
-cal.add('summary', 'Maint Note Example')
 
 # either of these work fine
 #event = Event()
 event = xmaintnote.XMaintNoteEvent()
 
+event.add('summary', 'Maint Note Example')
 event.add('uid', '42')
 event.add('dtstart', datetime(2015, 10, 10, 8, 0, 0, tzinfo=pytz.utc))
 event.add('dtend', datetime(2015, 10, 10, 10, 0, 0, tzinfo=pytz.utc))
