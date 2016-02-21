@@ -17,8 +17,6 @@ def display(cal):
 cal = Calendar()
 cal.add('prodid', '-//Maint Note//https://github.com/maint-notification//')
 cal.add('version', '2.0')
-cal.add('dtstart', datetime(2015,4,4,8,0,0))
-cal['dtstart'].to_ical()
 cal.add('summary', 'Maint Note Example')
 
 # either of these work fine
