@@ -44,9 +44,6 @@ dt_cal_start = dt_now - timedelta(10)
 cal = Calendar()
 cal.add('prodid', '-//Maint Note//https://github.com/maint-notification//')
 cal.add('version', '2.0')
-#cal.add('dtstart', datetime(2015,4,4,8,0,0))
-cal.add('dtstart', dt_cal_start)
-cal['dtstart'].to_ical()
 
 # either of these work fine
 #event = Event()
