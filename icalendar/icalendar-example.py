@@ -28,6 +28,10 @@ event.add('dtstart', datetime(2015, 10, 10, 8, 0, 0, tzinfo=pytz.utc))
 event.add('dtend', datetime(2015, 10, 10, 10, 0, 0, tzinfo=pytz.utc))
 event.add('dtstamp', datetime(2015, 10, 10, 0, 10, 0, tzinfo=pytz.utc))
 
+organizer = vCalAddress('mailto:noone@example.com')
+organizer.params['cn'] = vText('Example NOC')
+event['organizer'] = organizer
+
 # maintnote stuff
 event.add('x-maintnote-provider', 'example.com' )
 event.add('x-maintnote-account', '137.035999173' )
