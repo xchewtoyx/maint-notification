@@ -1,16 +1,16 @@
+from datetime import datetime, timedelta
+import pytest
+
 from icalendar import Calendar, Event
 from icalendar import vCalAddress, vText
 
-import xmaintnote # XXX kbaker's hacks for BCOP
-
-from datetime import datetime, timedelta
-#import pytz
-
-
+import xmaintnote
+from xmaintnote import exc
 
 
 def display(cal):
     return cal.to_ical().replace('\r\n', '\n').strip()
+
 
 def roundTime(dt=None, roundTo=60):
    """Round a datetime object to any time laps in seconds
@@ -24,9 +24,10 @@ def roundTime(dt=None, roundTo=60):
    rounding = (seconds+roundTo/2) // roundTo * roundTo
    return dt + timedelta(0,rounding-seconds,-dt.microsecond)
 
+
 def start_two_hours_from_now():
     """Setup two datetime dates for a meeting set two hours from now"""
-    dt_now = datetime.now()
+    dt_now = datetime(2016, 06, 12, 19, 23, 52)
     #dt_now = datetime.utcnow()
     dt_now_rnd = roundTime(dt_now, roundTo=60*60)
     dt_mtg_start = dt_now_rnd + timedelta(0, 60*60)
@@ -34,7 +35,7 @@ def start_two_hours_from_now():
     return (dt_now, dt_mtg_start, dt_mtg_end)
 
 
-def test_create_entry():
+def test_create_entry(pytestconfig):
     # cook up a datetime for our calendar entry
     (dt_now, dt_mtg_start, dt_mtg_end) = start_two_hours_from_now()
     dt_cal_start = dt_now - timedelta(10)
@@ -44,16 +45,11 @@ def test_create_entry():
     cal.add('prodid', '-//Maint Note//https://github.com/maint-notification//')
     cal.add('version', '2.0')
 
-    # either of these work fine
-    #event = Event()
     event = xmaintnote.XMaintNoteEvent()
 
     event.add('summary', 'Maint Note Example')
     event.add('uid', '42')
     event.add('sequence', 1)
-    #event.add('dtstart', datetime(2015, 10, 10, 8, 0, 0, tzinfo=pytz.utc))
-    #event.add('dtend', datetime(2015, 10, 10, 10, 0, 0, tzinfo=pytz.utc))
-    #event.add('dtstamp', datetime(2015, 10, 10, 0, 10, 0, tzinfo=pytz.utc))
     event.add('dtstart', dt_mtg_start)
     event.add('dtend', dt_mtg_end)
     event.add('dtstamp', dt_now)
@@ -92,4 +88,18 @@ def test_create_entry():
         event.add('attendee', attendee, encode=0)
 
     cal.add_component(event)
-    print display(cal)
+
+    expected_output = pytestconfig.rootdir.join('tests/example.ical')
+    assert display(cal) == expected_output.read().strip()
+
+def test_multiple_objects():
+    event = xmaintnote.XMaintNoteEvent()
+    event.add('x-maintnote-object-id', 'object1')
+    event.add('x-maintnote-object-id', 'object2')
+    assert len(event['x-maintnote-object-id']) == 2
+    
+def test_multiple_impacts_raises():
+    event = xmaintnote.XMaintNoteEvent()
+    event.add('x-maintnote-impact', 'NO-IMPACT')
+    with pytest.raises(exc.PropertyError):
+        event.add('x-maintnote-impact', 'OUTAGE')

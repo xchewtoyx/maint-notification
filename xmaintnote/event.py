@@ -1,5 +1,7 @@
 from icalendar import Event
 
+from xmaintnote import exc
+
 
 class XMaintNoteEvent(Event):
 
@@ -32,6 +34,13 @@ class XMaintNoteEvent(Event):
         'X-MAINTNOTE-PROVIDER',
         'X-MAINTNOTE-ACCOUNT',
         'X-MAINTNOTE-MAINTENANCE-ID',
-        'X-MAINTNOTE-OBJECT-ID',
         'X-MAINTNOTE-IMPACT',
     )
+    multiple = Event.multiple + (
+        'X-MAINTNOTE-OBJECT-ID',
+    )
+
+    def add(self, name, value, **kwargs):
+        if name.upper() in self.singletons and name in self:
+            raise exc.PropertyError('Multiple values supplied for singleton property %r' % name)
+        super(XMaintNoteEvent, self).add(name, value, **kwargs)
