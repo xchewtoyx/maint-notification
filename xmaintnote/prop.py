@@ -44,5 +44,5 @@ class vXMaintNoteStatus(vText):
     def __init__(self, *args, **kwargs):
         super(vXMaintNoteStatus, self).__init__(*args, **kwargs)
         if str(self) not in self.allowed_values:
-            raise ValueError('Invalid %s status %s (allowed: %r)' % (
-                self.property_name, str(self), self.allowed_values))
+            LOGGER.debug('Encountered non-standard %s status value %s',
+                         self.property_name, str(self))

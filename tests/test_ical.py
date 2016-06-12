@@ -115,7 +115,8 @@ def test_maint_status_dup_raises():
     with pytest.raises(exc.PropertyError):
         event.add('x-maintnote-status', 'CONFIRMED')
 
-def test_maint_status_bad_raises():
+def test_maint_status_bad_logs(caplog):
     event = xmaintnote.XMaintNoteEvent()
-    with pytest.raises(ValueError):
-        event.add('x-maintnote-status', 'TINNITUS')
+    bad_status = 'TINNITUS'
+    event.add('x-maintnote-status', bad_status)
+    assert bad_status in caplog.text()
