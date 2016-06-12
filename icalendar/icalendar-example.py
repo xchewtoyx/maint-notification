@@ -51,6 +51,7 @@ event = xmaintnote.XMaintNoteEvent()
 
 event.add('summary', 'Maint Note Example')
 event.add('uid', '42')
+event.add('sequence', 1)
 #event.add('dtstart', datetime(2015, 10, 10, 8, 0, 0, tzinfo=pytz.utc))
 #event.add('dtend', datetime(2015, 10, 10, 10, 0, 0, tzinfo=pytz.utc))
 #event.add('dtstamp', datetime(2015, 10, 10, 0, 10, 0, tzinfo=pytz.utc))
