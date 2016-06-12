@@ -1,3 +1,4 @@
+import logging
 from icalendar import Calendar, Event
 from icalendar import vCalAddress, vText
 
@@ -6,7 +7,7 @@ import xmaintnote # XXX kbaker's hacks for BCOP
 from datetime import datetime, timedelta
 #import pytz
 
-
+logging.basicConfig()
 
 
 def display(cal):
