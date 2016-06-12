@@ -26,3 +26,23 @@ class vXMaintNoteImpact(vText):
             LOGGER.debug(
                 'Unrecognised impact type %r should be treated as OUTAGE',
                 str(self))
+
+
+@register_property
+class vXMaintNoteStatus(vText):
+    """ X-MAINTNOTE-STATUS
+    """
+    property_name = 'x-maintnote-status'
+    allowed_values = (
+        'TENTATIVE',
+        'CONFIRMED',
+        'CANCELLED',
+        'IN-PROCESS',
+        'COMPLETED',
+    )
+
+    def __init__(self, *args, **kwargs):
+        super(vXMaintNoteStatus, self).__init__(*args, **kwargs)
+        if str(self) not in self.allowed_values:
+            raise ValueError('Invalid %s status %s (allowed: %r)' % (
+                self.property_name, str(self), self.allowed_values))

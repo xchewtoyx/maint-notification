@@ -103,3 +103,19 @@ def test_multiple_impacts_raises():
     event.add('x-maintnote-impact', 'NO-IMPACT')
     with pytest.raises(exc.PropertyError):
         event.add('x-maintnote-impact', 'OUTAGE')
+
+def test_maint_status():
+    event = xmaintnote.XMaintNoteEvent()
+    event.add('x-maintnote-status', 'TENTATIVE')
+    assert event['x-maintnote-status'] == 'TENTATIVE'
+
+def test_maint_status_dup_raises():
+    event = xmaintnote.XMaintNoteEvent()
+    event.add('x-maintnote-status', 'TENTATIVE')
+    with pytest.raises(exc.PropertyError):
+        event.add('x-maintnote-status', 'CONFIRMED')
+
+def test_maint_status_bad_raises():
+    event = xmaintnote.XMaintNoteEvent()
+    with pytest.raises(ValueError):
+        event.add('x-maintnote-status', 'TINNITUS')

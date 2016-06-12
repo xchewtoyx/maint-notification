@@ -16,6 +16,7 @@ class XMaintNoteEvent(Event):
         'X-MAINTNOTE-MAINTENANCE-ID',
         'X-MAINTNOTE-OBJECT-ID',
         'X-MAINTNOTE-IMPACT',
+        'X-MAINTNOTE-STATUS',
     )
 
     # XXX-kbaker notes:
@@ -35,6 +36,7 @@ class XMaintNoteEvent(Event):
         'X-MAINTNOTE-ACCOUNT',
         'X-MAINTNOTE-MAINTENANCE-ID',
         'X-MAINTNOTE-IMPACT',
+        'X-MAINTNOTE-STATUS',
     )
     multiple = Event.multiple + (
         'X-MAINTNOTE-OBJECT-ID',
