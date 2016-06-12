@@ -1,3 +1,4 @@
+import logging
 from icalendar import Calendar, Event
 from icalendar import vCalAddress, vText
 
@@ -6,7 +7,7 @@ import xmaintnote # XXX kbaker's hacks for BCOP
 from datetime import datetime, timedelta
 #import pytz
 
-
+logging.basicConfig()
 
 
 def display(cal):
@@ -68,7 +69,7 @@ event.add('x-maintnote-provider', 'example.com' )
 event.add('x-maintnote-account', '137.035999173' )
 event.add('x-maintnote-maintenance-id', 'WorkOrder-31415' )
 event.add('x-maintnote-object-id', 'acme-widgets-as-a-service' )
-event.add('x-maintnote-impact', "NO-IMPACT");
+event.add('x-maintnote-impact', "HIGH-IMPACT");
 # test the regex
 #event.add('x-maintnote-impact', "GARBAGE");
 

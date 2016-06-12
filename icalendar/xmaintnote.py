@@ -1,3 +1,5 @@
+import logging
+
 import icalendar
 from icalendar import Event, vText
 
@@ -6,7 +8,8 @@ try:
 except ImportError:
     import json as _json
 
-import re
+LOGGER = logging.getLogger(__name__)
+
 
 class XMaintNoteEvent(Event):
 
@@ -57,15 +60,13 @@ class vXMaintNoteImpact(vText):
         'OUTAGE'
     ]
 
-    # create a regex to check incoming types against
-    MAINT_NOTE_IMPACT = re.compile('(?:%s)' % '|'.join(impact_types))
-
     def __init__(self, *args, **kwargs):
         super(vXMaintNoteImpact, self).__init__(*args, **kwargs)
 
-        match = vXMaintNoteImpact.MAINT_NOTE_IMPACT.match(self)
-        if match is None:
-            raise ValueError('Expected x-maint-note-impact, got: %s' % self)
+        if str(self) not in self.impact_types:
+            LOGGER.debug(
+                'Unrecognised impact type %r should be treated as OUTAGE',
+                str(self))
 
 
 # tell the TypesFactory about vXMaintNoteImpact
