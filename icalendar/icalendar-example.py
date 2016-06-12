@@ -69,7 +69,7 @@ event.add('x-maintnote-provider', 'example.com' )
 event.add('x-maintnote-account', '137.035999173' )
 event.add('x-maintnote-maintenance-id', 'WorkOrder-31415' )
 event.add('x-maintnote-object-id', 'acme-widgets-as-a-service' )
-event.add('x-maintnote-impact', "HIGH-IMPACT");
+event.add('x-maintnote-impact', "NO-IMPACT");
 # test the regex
 #event.add('x-maintnote-impact', "GARBAGE");
 
