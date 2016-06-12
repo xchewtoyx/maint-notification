@@ -1,0 +1,2 @@
+class PropertyError(Exception):
+    pass

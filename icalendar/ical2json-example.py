@@ -5,6 +5,7 @@ from icalendar import Calendar, Event
 from icalendar import vCalAddress, vText
 
 import xmaintnote # XXX kbaker's hacks for BCOP
+from xmaintnote.util import ical2json
 
 from datetime import datetime
 import pytz
@@ -61,4 +62,4 @@ if 0:
 
 cal.add_component(event)
 
-print xmaintnote.ical2json(cal)
+print ical2json(cal)
