@@ -1,16 +1,16 @@
 import logging
 
-import icalendar
 from icalendar import vText
+
+from xmaintnote.util import register_property
 
 LOGGER = logging.getLogger(__name__)
 
-
+@register_property
 class vXMaintNoteImpact(vText):
-
     """ X-MAINTNOTE-IMPACT
     """
-
+    property_name = 'x-maintnote-impact'
     # list of known impact types
     impact_types = [ 
         'NO-IMPACT',
@@ -26,8 +26,3 @@ class vXMaintNoteImpact(vText):
             LOGGER.debug(
                 'Unrecognised impact type %r should be treated as OUTAGE',
                 str(self))
-
-
-# tell the TypesFactory about vXMaintNoteImpact
-icalendar.cal.types_factory['x-maintnote-impact'] = vXMaintNoteImpact
-icalendar.cal.types_factory.types_map['x-maintnote-impact'] = 'x-maintnote-impact'

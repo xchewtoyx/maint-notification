@@ -1,5 +1,5 @@
-from simplejson import _json
 import icalendar
+import simplejson as _json
 
 
 def encode_vDDDTypes(obj):
@@ -30,3 +30,10 @@ def ical2json(cal):
 
 def display(cal):
     return cal.to_ical().replace('\r\n', '\n').strip()
+
+
+def register_property(property_type):
+    property_name = property_type.property_name
+    icalendar.cal.types_factory[property_name] = property_type
+    icalendar.cal.types_factory.types_map[property_name] = property_name
+    return property_type
