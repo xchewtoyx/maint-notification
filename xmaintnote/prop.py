@@ -31,9 +31,3 @@ class vXMaintNoteImpact(vText):
 # tell the TypesFactory about vXMaintNoteImpact
 icalendar.cal.types_factory['x-maintnote-impact'] = vXMaintNoteImpact
 icalendar.cal.types_factory.types_map['x-maintnote-impact'] = 'x-maintnote-impact'
-
-def encode_vDDDTypes(obj):
-    if isinstance(obj, icalendar.prop.vDDDTypes):
-        # convert vDDDTypes - date/time types to strings
-        return unicode(obj.to_ical())
-    raise TypeError(repr(o) + " is not JSON serializable")

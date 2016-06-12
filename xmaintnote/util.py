@@ -1,4 +1,12 @@
 from simplejson import _json
+import icalendar
+
+
+def encode_vDDDTypes(obj):
+    if isinstance(obj, icalendar.prop.vDDDTypes):
+        # convert vDDDTypes - date/time types to strings
+        return unicode(obj.to_ical())
+    raise TypeError(repr(o) + " is not JSON serializable")
 
 
 def ical2json(cal):
