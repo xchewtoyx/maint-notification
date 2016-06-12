@@ -1,7 +1,10 @@
 import icalendar
 from icalendar import Event, vText
 
-import simplejson as _json
+try:
+    import simplejson as _json
+except ImportError:
+    import json as _json
 
 import re
 
